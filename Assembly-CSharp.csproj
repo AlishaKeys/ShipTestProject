@@ -59,22 +59,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\LevelManager.cs" />
-    <Compile Include="Assets\Scripts\Application\AsteroidApplication.cs" />
-    <Compile Include="Assets\Scripts\Application\BaseApplication.cs" />
-    <Compile Include="Assets\Scripts\Application\ShipApplication.cs" />
-    <Compile Include="Assets\Scripts\Controller\AsteroidController.cs" />
-    <Compile Include="Assets\Scripts\Controller\ShipController.cs" />
-    <Compile Include="Assets\Scripts\Element\AsteroidElement.cs" />
-    <Compile Include="Assets\Scripts\Element\ShipElement.cs" />
-    <Compile Include="Assets\Scripts\GameSave.cs" />
+    <Compile Include="Assets\Scripts\BaseData.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Generator.cs" />
+    <Compile Include="Assets\Scripts\GeneratorComponent.cs" />
+    <Compile Include="Assets\Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\Model\AsteroidModel.cs" />
+    <Compile Include="Assets\Scripts\Model\BaseModel.cs" />
+    <Compile Include="Assets\Scripts\Model\IBaseModel.cs" />
     <Compile Include="Assets\Scripts\Model\ShipModel.cs" />
-    <Compile Include="Assets\Scripts\Notification\AsteroidNotification.cs" />
-    <Compile Include="Assets\Scripts\Notification\ShipNotification.cs" />
-    <Compile Include="Assets\Scripts\SaveLoad.cs" />
+    <Compile Include="Assets\Scripts\Model\WeaponModel.cs" />
+    <Compile Include="Assets\Scripts\Presenter\AsteroidPresenter.cs" />
+    <Compile Include="Assets\Scripts\Presenter\BasePresenter.cs" />
+    <Compile Include="Assets\Scripts\Presenter\IBasePresenter.cs" />
+    <Compile Include="Assets\Scripts\Presenter\ShipPresenter.cs" />
+    <Compile Include="Assets\Scripts\Presenter\WeaponPresenter.cs" />
+    <Compile Include="Assets\Scripts\SceneState.cs" />
+    <Compile Include="Assets\Scripts\Serializator.cs" />
+    <Compile Include="Assets\Scripts\ShipData.cs" />
     <Compile Include="Assets\Scripts\View\AsteroidView.cs" />
+    <Compile Include="Assets\Scripts\View\BaseView.cs" />
+    <Compile Include="Assets\Scripts\View\IBaseView.cs" />
     <Compile Include="Assets\Scripts\View\ShipView.cs" />
+    <Compile Include="Assets\Scripts\View\WeaponView.cs" />
+    <Compile Include="Assets\Spawn.cs" />
+    <Compile Include="Assets\SurragateVector2.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Алина/Documents/ShipTestProject/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

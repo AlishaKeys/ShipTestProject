@@ -5,54 +5,11 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-public class AsteroidView : AsteroidElement, IAsteroidView
+public class AsteroidView : BaseView<AsteroidPresenter>
 {
-	void Start ()
+    public override void Move(float speed)
     {
-        Hit();
-
-        Observable.EveryUpdate()
-          .Subscribe(x =>
-          {
-              Move();
-          })
-          .AddTo(this);
+        transform.Translate(-transform.up * speed * Time.deltaTime);
     }
-
-    void Hit()
-    {
-        gameObject.OnTriggerEnter2DAsObservable()
-            .Where(x => x.CompareTag("Bullet"))
-            .Select(x => x)
-            .Distinct()
-            .Subscribe(_ =>
-            {
-                app.controller.OnNotification(AsteroidNotification.Bullet, this);
-            })
-            .AddTo(this);
-    }
-
-    void Move()
-    {
-        transform.Translate(-transform.up * app.model.speed * Time.deltaTime);
-    }
-
-    void DestroyAsteroidInvisible()
-    {
-        Observable.Timer(TimeSpan.FromSeconds(1))
-            .Subscribe(_ =>
-            {
-                gameObject.OnBecameInvisibleAsObservable()
-                .Subscribe(__ =>
-                {
-                    Destroy(gameObject);
-                });
-            })
-            .AddTo(this);
-    }
-}
-
-public interface IAsteroidView
-{
 }
 

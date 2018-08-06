@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
-public class ShipModel: ShipElement
+[System.Serializable]
+public class ShipModel: BaseModel
 {
-    public int lives, winCountAsteroids, speed;
-
-    public int Life { get; set; }
-
-    public int CountAsteroids { get; set; }
 }

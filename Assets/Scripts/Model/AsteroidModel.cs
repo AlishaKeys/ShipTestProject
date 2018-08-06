@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidModel : AsteroidElement, IAsteroidModel
-{
-    public float speed;
-}
-
-public interface IAsteroidModel
+[System.Serializable]
+public class AsteroidModel : BaseModel
 {
 }

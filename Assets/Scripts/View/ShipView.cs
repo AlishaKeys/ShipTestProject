@@ -4,82 +4,31 @@ using System.Collections.Generic;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using UnityEngine.UI;
 
-public interface IShipView
+public class ShipView : BaseView<ShipPresenter>
 {
-}
+    public ReactiveCommand Ressurect;
 
-public class ShipView : ShipElement, IShipView
-{
-    void Start()
+    public Text hpText;
+
+    public void RenderHp(int hp)
     {
-        app.model.Life = app.model.lives;
-
-        UpdateLivesText();
-
-        Hit();
-
-        Shoot();
-
-        Observable.EveryUpdate()
-          .Subscribe(x =>
-          {
-              Move();
-          })
-          .AddTo(this);
+        hpText.text = hp.ToString();
     }
 
-    void Move()
+
+    public override void Move(float speed)
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        float xPos = horizontal;
-        float yPos = vertical;
 
-        transform.Translate(new Vector3(xPos, yPos, 0) * app.model.speed * Time.deltaTime);
+        transform.Translate(new Vector3(horizontal, vertical, 0) * speed * Time.deltaTime);
     }
 
-    void Hit()
+    public void Shoot()
     {
-        gameObject.OnTriggerEnter2DAsObservable()
-            .Where(x => x.CompareTag("Asteroid"))
-            .Select(x => x)
-            .Distinct()
-            .Subscribe(_ =>
-            {
-                app.controller.OnNotification(ShipNotification.Asteroid, this);
-                UpdateLivesText();
-            })
-            .AddTo(this);
-    }
-
-    void UpdateLivesText()
-    {
-        app.controller.lives.text = app.model.Life.ToString();
-    }
-
-    void Shoot()
-    {
-        var clickSpace = Observable.EveryUpdate()
-            .Where(x => Input.GetKey(KeyCode.Space));
-            
-            clickSpace.Buffer(clickSpace.Throttle(TimeSpan.FromMilliseconds(100)))
-            .Where(x => x.Count >= 1) 
-            .Subscribe(_ =>
-            {
-                GameObject bullet = Instantiate(app.controller.weapon, transform.position, transform.rotation, transform.parent);
-
-                bullet.OnBecameInvisibleAsObservable()
-                    .Subscribe(x => Destroy(bullet)).AddTo(bullet);
-
-                bullet.OnTriggerEnter2DAsObservable()
-                    .Where(x => x.CompareTag("Asteroid"))
-                    .Select(x => x)
-                    .Distinct()
-                    .Subscribe(x => app.controller.OnNotification(ShipNotification.ShootAsteroid, this)).AddTo(bullet);
-
-                bullet.UpdateAsObservable()
-                    .Subscribe(x => bullet.transform.Translate(bullet.transform.up * app.model.speed * Time.deltaTime)).AddTo(bullet);
-            });
+        Generator.InstantiateItem(Presenter.weapon.name, transform.position, transform.rotation);
+        var weapon = Instantiate(Presenter.weapon, transform.position, transform.rotation, transform.parent);
     }
 }
